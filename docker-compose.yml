@@ -1,0 +1,12 @@
+as2:
+  build: .
+  ports:
+   - "5091"
+   - "8080"
+  volumes:
+   - ./conf:/mendelson/conf
+   - ./messages:/mendelson/messages
+   - ./log:/mendelson/log 
+
+  
+
