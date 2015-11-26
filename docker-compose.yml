@@ -4,9 +4,4 @@ as2:
    - "5091"
    - "8080"
   volumes:
-   - ./conf:/mendelson/conf
-   - ./messages:/mendelson/messages
-   - ./log:/mendelson/log 
-
-  
-
+   - ./wd:/opt/mendelson/wd
