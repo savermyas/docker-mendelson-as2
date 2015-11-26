@@ -1,7 +1,7 @@
 as2:
   build: .
   ports:
-   - "5091"
+   - "5901"
    - "8080"
   volumes:
    - ./wd:/opt/mendelson/wd
