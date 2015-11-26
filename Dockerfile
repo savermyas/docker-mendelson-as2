@@ -11,9 +11,9 @@ RUN echo "$(cat /mendelson/vncpasswd)" > /tmp/passwd; echo "$(cat /mendelson/vnc
 
 RUN mv mendelson /opt/
 
-RUN mkdir /opt/mendelson/wd/jetty9; mv /opt/mendelson/jetty9/etc /opt/mendelson/wd/jetty9/; mv /opt/mendelson/certificates.p12 /opt/mendelson/wd/; mv /opt/mendelson/log4j.properties /opt/mendelson/wd/
+RUN mkdir -p /opt/mendelson/wd/jetty9; mv /opt/mendelson/jetty9/etc /opt/mendelson/wd/jetty9/; mv /opt/mendelson/certificates.p12 /opt/mendelson/wd/; mv /opt/mendelson/log4j.properties /opt/mendelson/wd/
 #TODO - edit jetty path in xml
 
 EXPOSE 8080 5901
 
-CMD /opt/mendelson/scripts/runas2.sh
+CMD ["/opt/mendelson/scripts/runas2.sh"]
