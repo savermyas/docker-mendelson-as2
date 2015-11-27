@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
-# TODO: SIGTERM trap - https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
-# TODO - clean locks in wd on exit
 
-MENDELSON_HOME="/opt/mendelson"
 WD="$MENDELSON_HOME/wd"
+
+#==== Initialize if WD is empty ====
+if find "$WD" -mindepth 1 -print -quit | grep -q .; then
+    echo "Using data from previous run"
+else
+    echo "Workdir $WD is empty, performing preparation"
+    ln -s $MENDELSON_HOME/custom/webpasswd $WD/passwd
+    ln -s $MENDELSON_HOME/jetty9 $WD/jetty9
+    cp $MENDELSON_HOME/certificates.p12 $WD/
+    cp $MENDELSON_HOME/log4j.properties $WD/
+fi
+
 CLASSPATH=$MENDELSON_HOME/as2.jar:$MENDELSON_HOME/jetty9/start.jar
 JARDIRS=(
 "jlib" 
@@ -26,6 +35,7 @@ done
 
 cleanup() {
    if [ "$(pidof java)" ]; then
+      echo "Gracefully stopping Mendelson AS2"
       java -Xmx192M -Xms92M -classpath $CLASSPATH de.mendelson.comm.as2.AS2Shutdown; 
    fi;
    for f in $(find /tmp/ -name ".X*-lock"); do
@@ -36,19 +46,21 @@ cleanup() {
    rm -f $WD/*.lock
 }
 
-trap 'cleanup; exit 0' SIGTERM
+trap 'cleanup; exit 0' SIGINT SIGTERM
 
 cleanup
+
+echo "$(cat $MENDELSON_HOME/custom/vncpasswd)" > /tmp/passwd
+echo "$(cat $MENDELSON_HOME/custom/vncpasswd)" >> /tmp/passwd
+vncpasswd < /tmp/passwd 
+rm -f /tmp/passwd
 
 export DISPLAY=:1
 vncserver
 
 #=== VNC prepared
 cd $WD
-java -Xmx1024M -Xms92M -classpath $CLASSPATH de.mendelson.comm.as2.AS2 $1 $2 $3 $4 $5 $6 $7 $8 $9
-
+exec java -Xmx1024M -Xms92M -classpath $CLASSPATH de.mendelson.comm.as2.AS2 $1 $2 $3 $4 $5 $6 $7 $8 $9
 # APP started
 
 cleanup
-
-

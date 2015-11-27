@@ -1,7 +1,8 @@
 as2:
+  container_name: as2
   build: .
   ports:
    - "5901"
    - "8080"
   volumes:
-   - ./wd:/opt/mendelson/wd
+   - ./wd:/opt/mendelson/as2/wd
