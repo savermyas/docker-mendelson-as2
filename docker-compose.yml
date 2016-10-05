@@ -1,8 +1,12 @@
-as2:
-  container_name: as2
-  build: .
-  ports:
-   - "5901"
-   - "8080"
-  volumes:
-   - ./wd:/opt/mendelson/as2/wd
+version: '2'
+
+services:
+    as2:
+        container_name: as2
+        build: image
+        image: saver/as2:mendelson_1.1b49
+        ports:
+            - "5901"
+            - "8080"
+        volumes:
+            - ./wd:/opt/mendelson/as2/wd
