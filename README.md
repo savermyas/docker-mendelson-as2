@@ -1,7 +1,7 @@
 Mendelson AS2 in the container
 ==============================
 
-This repo contains everything that you need to run Mendelson AS in Docker container.
+This repo contains everything that you need to run [Mendelson AS2](http://as2.mendelson-e-c.com) in Docker container.
 
 
 Requirements
@@ -18,17 +18,17 @@ Instructions
    2. Edit passwords files in the directory "image/custom/"
    3. Run the command:
 
-    docker-compose up
+        docker-compose up
 
    4. Look for port mappings with command: 
 
-    docker ps -l
+        docker ps -l
 
       or 
 
-    docker inspect as2
+        docker inspect as2
 
-   5. Use browser and vncviewer with appropriate ports, watch logs in wd folder
+   5. Use browser and vncviewer with appropriate ports and password from step 2, watch logs in wd folder
 
 
 Links
