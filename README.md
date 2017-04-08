@@ -18,6 +18,7 @@ Build
 1. Clone the repo, enter the folder.
 2. Run the command:
 
+
     make image
 
 Run
@@ -28,13 +29,16 @@ You may just skip the build and use image from Docker Hub
 1. Edit passwords files in the directory "image/custom/"
 2. Run the command:
 
+
     docker-compose up
 
 3. Look for port mappings with command: 
 
+
     docker ps -l
 
 or 
+
 
     docker inspect as2
 
