@@ -10,5 +10,5 @@ script: make
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push USER/REPO;
+    docker push saver/mendelson-as2:1.1b51;
     fi
