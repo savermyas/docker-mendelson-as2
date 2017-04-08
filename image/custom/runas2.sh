@@ -7,12 +7,43 @@ if find "$WD" -mindepth 1 -print -quit | grep -q .; then
     echo "Using data from previous run"
 else
     echo "Workdir $WD is empty, performing preparation"
-    ln -s $MENDELSON_HOME/custom/webpasswd $WD/passwd
-    ln -s $MENDELSON_HOME/jetty9 $WD/jetty9
-    cp $MENDELSON_HOME/certificates.p12 $WD/
-    cp $MENDELSON_HOME/log4j.properties $WD/
-    mkdir -p $WD/log
 fi
+
+if [ ! -f $WD/webpasswd ]; then
+    echo "Web password file not found. Creating default."
+    cp $MENDELSON_HOME/custom/webpasswd $WD/webpasswd
+    ln -s $WD/webpasswd $WD/passwd
+fi
+
+if [ ! -f $WD/vncpasswd ]; then
+    echo "VNC password file not found. Creating default."
+    cp $MENDELSON_HOME/custom/vncpasswd $WD/vncpasswd
+fi
+
+if [ ! -f $WD/certificates.p12 ]; then
+    echo "Certificates storage not found. Creating default."
+    cp $MENDELSON_HOME/certificates.p12 $WD/
+fi
+
+if [ ! -f $WD/log4j.properties ]; then
+    echo "Logging properties file not found. Creating default."
+    cp $MENDELSON_HOME/log4j.properties $WD/
+fi
+
+if [ ! -d $WD/jetty9 ]; then
+    echo "Preparing Jetty working directory."
+    mkdir -p $WD/jetty9
+    etc  lib  license-eplv10-aslv20.html  logs  notice.html  README.TXT  resources  start.ini  start.jar  VERSION.txt  webapps
+    ln -s $MENDELSON_HOME/jetty9/lib $WD/jetty9/lib
+    ln -s $MENDELSON_HOME/jetty9/start.ini $WD/jetty9/start.ini
+    ln -s $MENDELSON_HOME/jetty9/start.jar $WD/jetty9/start.jar
+    ln -s $MENDELSON_HOME/jetty9/webapps $WD/jetty9/webapps
+    cp -r $MENDELSON_HOME/jetty9/etc $WD/jetty9/
+    cp -r $MENDELSON_HOME/jetty9/logs $WD/jetty9/
+    cp -r $MENDELSON_HOME/jetty9/resources $WD/jetty9/
+fi
+
+mkdir -p $WD/log
 
 CLASSPATH=$MENDELSON_HOME/as2.jar:$MENDELSON_HOME/jetty9/start.jar
 JARDIRS=(
@@ -51,8 +82,8 @@ trap 'cleanup; exit 0' SIGINT SIGTERM
 
 cleanup
 
-echo "$(cat $MENDELSON_HOME/custom/vncpasswd)" > /tmp/passwd
-echo "$(cat $MENDELSON_HOME/custom/vncpasswd)" >> /tmp/passwd
+echo "$(cat $WD/vncpasswd)" > /tmp/passwd
+echo "$(cat $WD/vncpasswd)" >> /tmp/passwd
 vncpasswd < /tmp/passwd 
 rm -f /tmp/passwd
 
