@@ -19,33 +19,29 @@ Build
 2. Run the command:
 
 
-    make image
+    make
 
 Run
 ---
 
 You may just skip the build and use image from Docker Hub
 
-1. Edit passwords files in the directory "image/custom/"
-2. Run the command:
+1. Run the command:
 
 
-    docker-compose up
+    docker-compose up -d
 
-3. Look for port mappings with command: 
-
-
-    docker ps -l
-
-or 
+2. Look for port mappings with command: 
 
 
-    docker inspect as2
+    docker-compose ps
 
-4. Use browser and vncviewer with appropriate ports and password from step 2, watch logs in wd folder
+
+3. Use browser and vncviewer with appropriate ports and password from files 'wd/vncpasswd' and 'wd/webpasswd', watch
+logs in wd folder
 
 
 Links
 -----
 
-* [Docker Hub link](https://hub.docker.com/r/saver/as2/)
+* [Docker Hub link](https://hub.docker.com/r/saver/mendelson-as2/)
