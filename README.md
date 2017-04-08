@@ -1,6 +1,8 @@
 Mendelson AS2 in the container
 ==============================
 
+[![Build Status](https://travis-ci.org/savermyas/docker-mendelson-as2.svg?branch=master)](https://travis-ci.org/savermyas/docker-mendelson-as2)
+
 This repo contains everything that you need to run [Mendelson AS2](http://as2.mendelson-e-c.com) in Docker container.
 
 
@@ -18,7 +20,6 @@ Build
 1. Clone the repo, enter the folder.
 2. Run the command:
 
-
     make
 
 Run
@@ -28,11 +29,9 @@ You may just skip the build and use image from Docker Hub
 
 1. Run the command:
 
-
     docker-compose up -d
 
 2. Look for port mappings with command: 
-
 
     docker-compose ps
 
