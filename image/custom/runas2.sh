@@ -11,6 +11,7 @@ else
     ln -s $MENDELSON_HOME/jetty9 $WD/jetty9
     cp $MENDELSON_HOME/certificates.p12 $WD/
     cp $MENDELSON_HOME/log4j.properties $WD/
+    mkdir -p $WD/log
 fi
 
 CLASSPATH=$MENDELSON_HOME/as2.jar:$MENDELSON_HOME/jetty9/start.jar
