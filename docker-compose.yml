@@ -4,7 +4,7 @@ services:
     as2:
         container_name: mendelson-as2
         build: image
-        image: saver/mendelson-as2:1.1b51
+        image: "saver/mendelson-as2:${MENDELSON_VERSION}"
         ports:
             - "5901"
             - "8080"

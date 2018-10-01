@@ -31,12 +31,16 @@ You may just skip the build and use image from Docker Hub
 
     docker-compose up -d
 
+   or
+
+    make start
+
 2. Look for port mappings with command: 
 
     docker-compose ps
 
 
-3. Use browser and vncviewer with appropriate ports and password from files 'wd/vncpasswd' and 'wd/webpasswd', watch
+3. Use browser and vncviewer with appropriate ports and password from files 'image/custom/vncpasswd' and 'image/custom/webpasswd', watch
 logs in wd folder
 
 
