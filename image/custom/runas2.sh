@@ -9,6 +9,12 @@ else
     echo "Workdir $WD is empty, performing preparation"
 fi
 
+# webas2 will crash if the file "database.acl" is not present in $WD
+if [ ! -f $WD/database.acl ]; then
+    echo "File database.acl not found. Using default."
+    cp $MENDELSON_HOME/database.acl $WD/database.acl
+fi
+
 if [ ! -f $WD/webpasswd ]; then
     echo "Web password file not found. Creating default."
     cp $MENDELSON_HOME/custom/webpasswd $WD/webpasswd
@@ -47,11 +53,15 @@ mkdir -p $WD/log
 
 CLASSPATH=$MENDELSON_HOME/as2.jar:$MENDELSON_HOME/jetty9/start.jar
 JARDIRS=(
-"jlib" 
-"jlib/mina"
+"jlib"
+"jlib/dark"
+"jlib/db"
 "jlib/help"
-"jlib/vaadin"
 "jlib/httpclient"
+"jlib/jpod"
+"jlib/mina"
+"jlib/svg"
+"jlib/vaadin"
 "jetty9/lib"
 )
 
@@ -68,7 +78,7 @@ done
 cleanup() {
    if [ "$(pidof java)" ]; then
       echo "Gracefully stopping Mendelson AS2"
-      java -Xmx192M -Xms92M -classpath $CLASSPATH de.mendelson.comm.as2.AS2Shutdown; 
+      java -Xmx192M -Xms92M -classpath $CLASSPATH de.mendelson.comm.as2.AS2Shutdown;
    fi;
    for f in $(find /tmp/ -name ".X*-lock"); do
       num=$(echo $f | rev | cut -d'X' -f 1 | rev | cut -d- -f1)		#get display number
@@ -84,7 +94,7 @@ cleanup
 
 echo "$(cat $WD/vncpasswd)" > /tmp/passwd
 echo "$(cat $WD/vncpasswd)" >> /tmp/passwd
-vncpasswd < /tmp/passwd 
+vncpasswd < /tmp/passwd
 rm -f /tmp/passwd
 
 export DISPLAY=:1
