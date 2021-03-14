@@ -18,6 +18,6 @@ image/mendelson-$(MENDELSON_VERSION).zip :
 	curl -L $(DOWNLOAD_URL) --output $@
 
 start :
-	docker-compose up
+	docker-compose up -d
 	HTTP_PORT=$$(docker-compose port as2 8080 | cut -d: -f2);\
 	echo Use http://localhost:$${HTTP_PORT} to connect to your Mendelson AS2
