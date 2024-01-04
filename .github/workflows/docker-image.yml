@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file image/Dockerfile --tag saver/mendelson-as2:1.1b63.1
+      run: make && docker build . --file image/Dockerfile --tag saver/mendelson-as2:1.1b63.1
