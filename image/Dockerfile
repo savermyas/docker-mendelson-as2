@@ -1,4 +1,4 @@
-FROM centos:7.3.1611
+FROM centos:7.9.2009
 
 MAINTAINER Dmitry Myasnikov <saver_is_not@bk.ru>
 
