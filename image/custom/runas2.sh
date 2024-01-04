@@ -47,11 +47,15 @@ mkdir -p $WD/log
 
 CLASSPATH=$MENDELSON_HOME/as2.jar:$MENDELSON_HOME/jetty9/start.jar
 JARDIRS=(
-"jlib" 
+"jlib"
 "jlib/mina"
-"jlib/help"
-"jlib/vaadin"
 "jlib/httpclient"
+"jlib/jpod"
+"jlib/help"
+"jlib/svg"
+"jlib/dark"
+"jlib/db"
+"jlib/jackson"
 "jetty9/lib"
 )
 
