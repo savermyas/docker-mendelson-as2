@@ -30,22 +30,27 @@ if [ ! -f $WD/log4j.properties ]; then
     cp $MENDELSON_HOME/log4j.properties $WD/
 fi
 
-if [ ! -d $WD/jetty9 ]; then
+if [ ! -f $WD/database.acl ]; then
+    echo "Database ACL file not found. Creating default."
+    cp $MENDELSON_HOME/database.acl $WD/
+fi
+
+if [ ! -d $WD/jetty10 ]; then
     echo "Preparing Jetty working directory."
-    mkdir -p $WD/jetty9
+    mkdir -p $WD/jetty10
     etc  lib  license-eplv10-aslv20.html  logs  notice.html  README.TXT  resources  start.ini  start.jar  VERSION.txt  webapps
-    ln -s $MENDELSON_HOME/jetty9/lib $WD/jetty9/lib
-    ln -s $MENDELSON_HOME/jetty9/start.ini $WD/jetty9/start.ini
-    ln -s $MENDELSON_HOME/jetty9/start.jar $WD/jetty9/start.jar
-    ln -s $MENDELSON_HOME/jetty9/webapps $WD/jetty9/webapps
-    cp -r $MENDELSON_HOME/jetty9/etc $WD/jetty9/
-    cp -r $MENDELSON_HOME/jetty9/logs $WD/jetty9/
-    cp -r $MENDELSON_HOME/jetty9/resources $WD/jetty9/
+    ln -s $MENDELSON_HOME/jetty10/lib $WD/jetty10/lib
+    ln -s $MENDELSON_HOME/jetty10/start.ini $WD/jetty10/start.ini
+    ln -s $MENDELSON_HOME/jetty10/start.jar $WD/jetty10/start.jar
+    ln -s $MENDELSON_HOME/jetty10/webapps $WD/jetty10/webapps
+    cp -r $MENDELSON_HOME/jetty10/etc $WD/jetty10/
+    cp -r $MENDELSON_HOME/jetty10/logs $WD/jetty10/
+    cp -r $MENDELSON_HOME/jetty10/resources $WD/jetty10/
 fi
 
 mkdir -p $WD/log
 
-CLASSPATH=$MENDELSON_HOME/as2.jar:$MENDELSON_HOME/jetty9/start.jar
+CLASSPATH=$MENDELSON_HOME/as2.jar:$MENDELSON_HOME/jetty10/start.jar
 JARDIRS=(
 "jlib"
 "jlib/mina"
@@ -56,7 +61,7 @@ JARDIRS=(
 "jlib/dark"
 "jlib/db"
 "jlib/jackson"
-"jetty9/lib"
+"jetty10/lib"
 )
 
 for JARDIR in ${JARDIRS[@]}
